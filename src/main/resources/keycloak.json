@@ -1,0 +1,8 @@
+{
+  "realm": "Bulk",
+  "auth-server-url": "https://preprod.sso.eqima.org",
+  "ssl-required": "none",
+  "resource": "bulk",
+  "public-client": true,
+  "confidential-port": 0
+}

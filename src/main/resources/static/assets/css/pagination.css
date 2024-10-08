@@ -1,0 +1,44 @@
+/* styles.css */
+
+.pagination-list {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    justify-content: center; /* Centrer les boutons horizontalement */
+}
+
+.pagination-btn {
+    padding: 10px;
+    margin: 0 4px;
+    border: none;
+    color: white;
+    background-color: #3498db; /* Couleur de fond */
+    cursor: pointer;
+    border-radius: 20px; /* Plus doux que le cercle complet */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s, color 0.3s; /* Transition fluide */
+}
+
+.pagination-btn:hover {
+    background-color: #2980b9; /* Couleur de fond au survol */
+}
+
+.pagination-btn.active {
+    background-color: rgb(239, 130, 0); /* Couleur de fond de l'élément actif */
+}
+
+.pointiller {
+    padding: 10px;
+    margin: 0 4px;
+    border: none;
+    color: white;
+    background-color: #3498db; /* Couleur de fond */
+    cursor: pointer;
+    border-radius: 20px; /* Plus doux que le cercle complet */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s, color 0.3s; /* Transition fluide */
+}

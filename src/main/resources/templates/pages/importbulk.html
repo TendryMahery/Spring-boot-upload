@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Expires" content="0">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<title>BulkPayment</title>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js" crossorigin="anonymous"></script>
+	<meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
+	<link rel="icon" href="../assets/img/Iconlog.png" type="image/x-icon" />
+	<!-- Fonts and icons -->
+	<script src="../assets/js/plugin/webfont/webfont.min.js"></script>
+
+	<script>
+		WebFont.load({
+			google: {"families": ["Lato:300,400,700,900"]},
+			custom: {"families": ["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"], urls: ['../assets/css/fonts.min.css']},
+			active: function () {
+				sessionStorage.fonts = true;
+			}
+		});
+	</script>
+
+	<style>
+		/* Style de la barre de défilement */
+		/* Pour les navigateurs basés sur Webkit (Chrome, Safari, etc.) */
+		::-webkit-scrollbar {
+			width: 10px;
+			/* Largeur de la barre de défilement */
+		}
+
+		/* Style du bouton de la barre de défilement */
+		::-webkit-scrollbar-thumb {
+			background-color: #888;
+			/* Couleur de fond du bouton */
+			border-radius: 5px;
+			/* Bord arrondi du bouton */
+		}
+
+		/* Style du bouton de la barre de défilement au survol */
+		::-webkit-scrollbar-thumb:hover {
+			background-color: #555;
+			/* Couleur de fond au survol */
+		}
+	</style>
+
+	<!-- CSS Files -->
+	<link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../assets/css/eqima.css">
+</head>
+
+<body data-background-color="white">
+	<div class="wrapper">
+		<div class="main-header">
+			<div class="logo-header" data-background-color="white"
+				th:if="${#authorization.expression('hasAnyRole(''eqima'',''cnaps'')')}">
+				<div class="logo">
+					<img src="../assets/img/.png" alt="navbar brand" class="navbar-brand">
+				</div>
+				<button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse"
+					data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon">
+						<i class="icon-menu"></i>
+					</span>
+				</button>
+				<div class="nav-toggle">
+					<button class="btn btn-toggle toggle-sidebar">
+						<i class="icon-menu"></i>
+					</button>
+				</div>
+			</div>
+			<nav class="navbar navbar-header" data-background-color="white">
+				<p class="preprod" th:if="${#authorization.expression('hasAnyRole(''eqima'',''jirama'')')}">
+					PREPRODUCTION JIRAKAIKY !</p>
+				<p class="preprod" th:if="${#authorization.expression('hasRole(''cnaps'')')}">BULK PREPROD !</p>
+			</nav>
+		</div>
+		<!-- Sidebar -->
+		<div class="sidebar sidebar-style-2" data-background-color="white">
+			<div class="sidebar-wrapper scrollbar scrollbar-inner">
+				<div class="sidebar-content">
+					<!--div class="user">
+						<div class="info">
+							<a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
+								<span id="nomuser">
+									<span class="user-level" id="prenomuser"></span>
+
+								</span>
+							</a>
+						</div>
+					</div-->
+					<ul class="nav nav-primary">
+						<li class="nav-item active">
+							<a href="accueil.html">
+								<i class="fas fa-home"></i>
+								<p>Accueil</p>
+							</a>
+						</li>
+						<li class="nav-section" th:if="${#authorization.expression('hasRole(''cnaps'')')}">
+							<span class="sidebar-mini-icon">
+								<i class="fa fa-ellipsis-h"></i>
+							</span>
+							<h4 class="text-section">BULK CUSTOMER</h4>
+						</li>
+						<li class="nav-item" th:if="${#authorization.expression('hasRole(''cnaps'')')}">
+							<a href="listebulk.html">
+								<i class="icon-menu"></i>
+								<span class="sub-item">Listes</span>
+							</a>
+						</li>
+
+						<li class="nav-item" th:if="${#authorization.expression('hasAnyRole(''eqima'',''cnaps'')')}">
+							<a data-toggle="collapse" href="#TrierBulk">
+								<i class="fas fa-table"></i>
+								<p>Trier</p>
+								<span class="caret"></span>
+							</a>
+							<div class="collapse" id="TrierBulk">
+								<ul class="nav nav-collapse">
+									<li>
+										<a href="ibulk.html">
+											<span class="sub-item">Aujourd'hui</span>
+										</a>
+									</li>
+									<li>
+										<a href="fbulk.html">
+											<span class="sub-item">Demain</span>
+										</a>
+									</li>
+									<li>
+										<a href="nbulk.html">
+											<span class="sub-item">Date à définir</span>
+										</a>
+									</li>
+								</ul>
+							</div>
+						</li>
+						<li class="nav-section" th:if="${#authorization.expression('hasRole(''cnaps'')')}">
+							<span class="sidebar-mini-icon">
+								<i class="fa fa-ellipsis-h"></i>
+							</span>
+							<h4 class="text-section">IMPORT CSV</h4>
+						</li>
+						<li class="nav-item" th:if="${#authorization.expression('hasRole(''cnaps'')')}">
+							<a href="importbulk.html">
+								<i class="fas fa-boxes"></i>
+								<span class="sub-item">Bulk</span>
+							</a>
+						</li>
+					</ul>
+					<div class="mx-4 mt-2">
+						<button class="logout btn btn-block" onclick="logout()"> <span>Se déconnecter</span></button>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<!-- End Sidebar -->
+
+
+
+
+
+
+		<div class="main-panel" th:if="${#authorization.expression('hasAnyRole(''eqima'',''cnaps'')')}">
+			<div class="content">
+				<div class="page-inner">
+					<div class="page-header">
+						<div class="mt-2 mb-4">
+							<h2 class="text-black pb-2">Importez les fichiers CSV ici ! </h2>
+						</div>
+					</div>
+					<div class="card-header" style="text-align:  center;">
+						<div class="card-title">Importation CSV</div>
+						<input type="file" id="csv-file" class="form-control mb-2" accept=".csv">
+					</div>
+					<div class="row">
+
+						<div class="col-md-4 mb-3">
+							<div class="card">
+								<div class="card-header" style="text-align:  center;">
+									<div class="card-title">Aujourd'hui</div>
+								</div>
+								<div class="card-body" style="text-align:  center;">
+
+
+									<button onclick="valider()"
+										class="btn btn-outline-warning">Valider</button>
+
+										
+									
+									<button onclick="uploadFileWithTodayDate()"
+										class="btn btn-outline-warning">IBULK</button>
+
+								</div>
+							</div>
+						</div>
+
+
+						<div class="col-md-4 mb-3">
+							<div class="card">
+								<div class="card-header" style="text-align:  center;">
+									<div class="card-title">Demain</div>
+								</div>
+								<div class="card-body" style="text-align:  center;">
+									<button onclick="uploadFileWithTomorrowDate()"
+										class="btn btn-outline-success">NBULK</button>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-md-4 mb-3">
+							<div class="card">
+								<div class="card-header" style="text-align:  center;">
+									<div class="card-title">Date à définir</div>
+								</div>
+								<div class="card-body" style="text-align:  center;">
+									<input type="date" id="date-execution" class="form-control mb-2"
+										placeholder="Entrez la date d'exécution">
+									<button onclick="uploadFileWithUserDate()"
+										class="btn btn-outline-secondary">FBULK</button>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div id="response-message">
+						</div>
+					</div>
+
+
+					<div class="card-body">
+						<div class="table-responsive">
+							<table id="basic-datatables" class="display table table-striped table-hover">
+								<caption></caption>
+								<thead>
+									<tr>
+										<th>Reference</th>
+										<th>Id Client</th>
+										<th>Nom Beneficiaire</th>
+										<th>N° Compte Beneficiaire</th>
+										<th>N° Compte à debiter</th>
+										<th>Montant</th>
+										<th>Devise</th>
+										<th>Date Execution</th>
+										<th>Type</th>
+										<th>Statut</th>
+									</tr>
+								</thead>
+								<tbody id="csvimporter"></tbody>
+							</table>
+							<!--div id="pagination">
+											<ul class="pagination-list form-inline justify-content-center">
+												<Pagination items will be added dynamically here>
+											</ul-->
+						</div>
+					</div>
+				</div>
+
+
+			</div>
+
+
+			<footer class="footer">
+				<div class="container-fluid">
+
+					<div class="copyright ml-auto">
+						Copyright © 2023 || Eqima Solutions
+					</div>
+				</div>
+			</footer>
+		</div>
+
+	</div>
+
+
+
+
+
+
+
+
+
+
+	<script src="../js/upload.js"></script>
+	<!--   Core JS Files   -->
+	<script src="../assets/js/core/jquery.3.2.1.min.js"></script>
+	<script src="../assets/js/core/popper.min.js"></script>
+	<script src="../assets/js/core/bootstrap.min.js"></script>
+	<!-- jQuery UI -->
+	<script src="../assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+	<script src="../assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
+
+	<!-- jQuery Scrollbar -->
+	<script src="../assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+	<!-- Datatables -->
+	<script src="../assets/js/plugin/datatables/datatables.min.js"></script>
+	<!-- Atlantis JS -->
+	<script src="../assets/js/atlantis.min.js"></script>
+	<!-- Atlantis DEMO methods, don't include it in your project! -->
+	<script src="../assets/js/setting-demo2.js"></script>
+	<!--<script async src="../assets/js/topagencejour.js"></script>-->
+</body>
+
+</html>
